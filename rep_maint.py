@@ -28,10 +28,26 @@ def insert_info():
 
 #Parts	
 	if ins.lower() == "1":
-		#before anything, check to see if we already have part information can simply update inventory count, this section is not ready to go!!!!
 		rfid = str(input("Enter the last 4 digits of RFID:\n"))
+
+		havePart = str(input("Was there more than 1 part used in this repair? (yes or no)\n"))
+		if havePart.lower() == "yes":
+			print("When all parts have been entered, type 'done' and press enter")
+			partNums = []
+			while True:
+				partNumber = str(input("Enter part number:\n"))
+				if partNumber.lower() == "done":
+					break
+				else:
+					partNums.append(partNumber)
+
+				#loop that takes in part numbers until 'done' is entered
+		if havePart.lower() == "no":
+			partNumber = str(input("Enter part number:\n"))
+
+		print(partNums)
+
 		laborHours = int(input("Enter the quantity of labor hours\n"))
-		partNumber = str(input("Enter part number:\n"))      #add loop for input for repairs that have more than 1 part used
 		numberOfParts = int(input("Enter number of parts used:\n"))
 		dategot = str(input("Enter the date in form MM/DD/YYYY:\n"))
 		print('Preparing to enter record:  Last 4 of RFID:'+rfid+'  Part number: '+partNumber+'  Quantity: '+str(numberOfParts)+'  Repair date: '+dategot+'  Labor Hours: '+str(laborHours)+"\n")
@@ -78,23 +94,30 @@ def insert_info():
 #repair record
 	if ins.lower() == "3":
 		rfid = str(input("Enter the last 4 digits of RFID:\n"))
+		#checks for more than one part for same repair
 		mto = str(input('More than 1 part used in repair?\nEnter y or n: \n'))
 		if mto.lower() == "y":
 			partsList = []
+			listNums = []
 			print("Press enter after each part number has been entered \nand type 'done' when all part numbers for repair have been added.\n")
 			while True:
 				partNumber = input("Enter part number:\n")
-				if partNumber.lower() == "done":
+				numberOfParts = input("Enter number of parts used:\n")
+				if partNumber.lower() == "done" or numberOfParts.lower() == "done":
 					break
 				partsList.append(partNumber)
+				listNums.append(numberOfParts)
 				
-
 			print(partsList)
 		if mto.lower() == "n":
-			partNumber = str(input("Enter part number:\n"))      #add loop for input for repairs that have more than 1 part used
-		laborHours = int(input("Enter the quantity of labor hours\n"))
-		numberOfParts = int(input("Enter number of parts used:\n"))
+			partNumber = str(input("Enter part number:\n"))
+
+		laborHours = str(input("Enter the quantity of labor hours\n"))
 		dategot = str(input("Enter the date in form MM/DD/YYYY:\n"))
+
+		print(len(partsList))
+		#for i in len(partsList):
+		#	print(i)
 		print('Preparing to enter record:  Last 4 of RFID:'+rfid+'  Part number: '+partNumber+'  Quantity: '+str(numberOfParts)+'  Repair date: '+dategot+'  Labor Hours: '+str(laborHours)+"\n")
 
 		try:
